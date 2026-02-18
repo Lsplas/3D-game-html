@@ -1,0 +1,32 @@
+// Player movement
+const keys = {};
+document.addEventListener("keydown", (e) => keys[e.code] = true);
+document.addEventListener("keyup", (e) => keys[e.code] = false);
+
+let velocityY = 0;
+const gravity = -0.05;
+const jumpStrength = 1.2;
+
+function updatePlayer() {
+  if (keys["KeyW"]) camera.position.z -= 0.1;
+  if (keys["KeyS"]) camera.position.z += 0.1;
+  if (keys["KeyA"]) camera.position.x -= 0.1;
+  if (keys["KeyD"]) camera.position.x += 0.1;
+
+  // Jump
+  if (keys["Space"] && camera.position.y <= 2) {
+    velocityY = jumpStrength;
+  }
+  velocityY += gravity;
+  camera.position.y += velocityY;
+  if (camera.position.y < 2) {
+    camera.position.y = 2;
+    velocityY = 0;
+  }
+}
+
+// Flashlight
+const flashlight = new THREE.SpotLight(0xffffff, 2, 15, Math.PI / 6, 0.5);
+flashlight.position.set(0, 2, 5);
+flashlight.target = camera;
+scene.add(flashlight);
