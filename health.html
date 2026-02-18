@@ -1,0 +1,13 @@
+let health = 100;
+
+function checkDamage(monster) {
+  const dist = camera.position.distanceTo(monster.position);
+  if (dist < 2) {
+    health -= 1;
+    console.log("Player hit! Health:", health);
+    if (health <= 0) {
+      alert("Game Over!");
+      health = 100;
+    }
+  }
+}
